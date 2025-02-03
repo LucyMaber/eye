@@ -24,8 +24,16 @@ function loadBloomFilterFromBuffer(name, dataBuffer) {
   const part1Buffer = dataBuffer.slice(0, splitIndex);
   const part2Buffer = dataBuffer.slice(splitIndex);
   // Create Int32Array views (note: Node’s Buffer shares an ArrayBuffer)
-  const part1 = new Int32Array(part1Buffer.buffer, part1Buffer.byteOffset, part1Buffer.byteLength / 4);
-  const part2 = new Int32Array(part2Buffer.buffer, part2Buffer.byteOffset, part2Buffer.byteLength / 4);
+  const part1 = new Int32Array(
+    part1Buffer.buffer,
+    part1Buffer.byteOffset,
+    part1Buffer.byteLength / 4
+  );
+  const part2 = new Int32Array(
+    part2Buffer.buffer,
+    part2Buffer.byteOffset,
+    part2Buffer.byteLength / 4
+  );
   const combined = new CombinedBloomFilter();
   combined.name = name;
   combined.parts = [
@@ -102,8 +110,13 @@ const isTransphobic = testBloomFilter(transphobic, identifier);
 let label = 'none';
 if (isTransphobic !== isTFriendly) {
   label = isTransphobic ? 'transphobic' : 't-friendly';
+  console.log(`Identifier: ${identifier} | Label: ${label}`);
+  if (isTransphobic) {
+    process.exit(3);
+  } else {
+    process.exit(2);
+  }
+} else {
+  console.log(`Identifier ${identifier} is ambiguous.`);
+  process.exit(0);
 }
-
-console.log(`URL: ${inputUrl}`);
-console.log(`Identifier: ${identifier}`);
-console.log(`Label: ${label}`);
