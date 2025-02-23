@@ -8,4 +8,4 @@ Exports:
     - main: Command-line entry point for the package.
 """
 
-from .shinigami_eyes_lib import build_url, run_node_cli, validate_url, main
+from .shinigami_eyes_lib import build_url, classify_shinigami_eyes, validate_url, main
