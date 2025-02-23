@@ -10,7 +10,6 @@ This module provides functions to:
   - Run the Node CLI tool and propagate its exit code.
   - Serve as a command-line entry point.
 """
-
 import subprocess
 import sys
 import logging
